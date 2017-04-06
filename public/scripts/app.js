@@ -4,4 +4,5 @@
 
   app.service('dataService', dataService)
   app.controller('RecipesController', RecipesController)
+  app.controller('RecipeDetailController', RecipeDetailController)
 })()

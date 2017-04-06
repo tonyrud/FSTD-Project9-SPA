@@ -1,19 +1,26 @@
 class dataService {
   constructor ($http, $rootScope) {
     this.$http = $http
-    this.apiRoot = 'http://localhost:5000/'
+    this.apiRoot = 'http://localhost:5000/api/'
   }
 
-  getRecipes () {
-    const endpoint = 'api/recipes'
-    this.dataService.getData(endpoint).then(data => {
-      this.recipes = data
-      console.log(data)
-    })
-  }
-
-  getData (apiPath) {
-    return this.$http.get(this.apiRoot + apiPath).then(response => response.data)
+  dataRequests (request, path, postData) {
+    const reqOptions = {
+      method: request,
+      url: `${this.apiRoot}` + path
+    }
+    if (request === 'DELETE') {
+      console.log('delete method')
+    }
+    if (postData) {
+      reqOptions.data = postData
+      debugger
+      this.$http(reqOptions).then(response => {
+        debugger
+        response.data
+      })
+    }
+    return this.$http(reqOptions).then(response => response.data)
   }
 }
 
