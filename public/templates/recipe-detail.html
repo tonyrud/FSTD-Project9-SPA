@@ -1,13 +1,13 @@
 <div class="grid-100 row controls">
   <div class="grid-50">
-    <!-- TODO Add a binding expression to display the recipe name 
+    <!-- Add a binding expression to display the recipe name 
       when editing a recipe. When adding a recipe, display the 
       static text 'Add New Recipe'. -->
     <h2>{{vm.title}}</h2>
   </div>
   <div class="grid-50">
     <div class="flush-right">
-      <!-- TODO Add directives to both the "Save Recipe" and "Cancel"
+      <!-- Add directives to both the "Save Recipe" and "Cancel"
         buttons in order to handle user clicks. -->
       <button ng-click="vm.createRecipe()">Save Recipe</button>
       <a href="/">
@@ -42,7 +42,7 @@
   </div>
   <div class="grid-40">
     <p>
-      <!-- TODO Add a directive to this input element to bind its value 
+      <!-- Add a directive to this input element to bind its value 
         to the recipe model's `name` property. -->
       <input ng-model="vm.recipeSave.name" type="text">
     </p>
@@ -58,7 +58,7 @@
   </div>
   <div class="grid-60">
     <p>
-      <!-- TODO Add a directive to this textarea element to bind its content 
+      <!-- Add a directive to this textarea element to bind its content 
         to the recipe model's `description` property. -->
       <textarea ng-model="vm.recipeSave.description"></textarea>
     </p>
@@ -74,7 +74,7 @@
   </div>
   <div class="grid-30">
     <p>
-      <!-- TODO Add directives to this select element to bind its value 
+      <!-- Add directives to this select element to bind its value 
         to the recipe model's `category` property and to populate the list
         with the categories from the database. -->
       <select ng-model="vm.recipeSave.category" ng-options="category.name as category.name for category in vm.categories">
@@ -93,7 +93,7 @@
   </div>
   <div class="grid-20">
     <p>
-      <!-- TODO Add a directive to this input element to bind its value 
+      <!-- Add a directive to this input element to bind its value 
         to the recipe model's `prepTime` property. -->
       <input ng-model="vm.recipeSave.prepTime" type="number">
     </p>
@@ -109,7 +109,7 @@
   </div>
   <div class="grid-20">
     <p>
-      <!-- TODO Add a directive to this input element to bind its value 
+      <!-- Add a directive to this input element to bind its value 
         to the recipe model's `cookTime` property. -->
       <input ng-model="vm.recipeSave.cookTime" type="number">
     </p>
@@ -139,30 +139,29 @@
     </p>
   </div>
 
-  <!-- TODO Add a directive to this div element so that it repeats 
+  <!-- Add a directive to this div element so that it repeats 
     for each recipe ingredient to display. -->
   <div  ng-repeat="ingredient in vm.recipeSave.ingredients track by $index" class="ingredient-row">
     <div class="prefix-20 grid-30">
       <p>
-        <!-- TODO Add directives to this select element to bind its value 
+        <!-- Add directives to this select element to bind its value 
           to the recipe ingredient model's `foodItem` property and to 
           populate the list with the food items from the database. -->
         <select ng-model="ingredient.foodItem" ng-options="foodItem.name as foodItem.name for foodItem in vm.foodItems">
           <option value="">Select Item</option>
-          <!--<option ng-repeat="item in vm.foodItems" value="">{{item.name}}</option>-->
         </select>
       </p>
     </div>
     <div class="grid-30">
       <p>
-        <!-- TODO Add a directive to this input element to bind its value 
+        <!-- Add a directive to this input element to bind its value 
           to the recipe ingredient model's `condition` property. -->
         <input ng-model="ingredient.condition" type="text">
       </p>
     </div>
     <div class="grid-15">
       <p>
-        <!-- TODO Add a directive to this input element to bind its value 
+        <!-- Add a directive to this input element to bind its value 
           to the recipe ingredient model's `amount` property. -->
         <input ng-model="ingredient.amount" type="text">
       </p>
@@ -178,7 +177,7 @@
 
   <div class="prefix-20 grid-80 add-row">
     <p>
-      <!-- TODO Add a directive to this button in order to handle 
+      <!-- Add a directive to this button in order to handle 
         when the user clicks to add a new recipe ingredient. -->
       <button ng-click="vm.changeIngredient()">+ Add {{vm.ingredientBtn}} Ingredient</button>
     </p>
@@ -199,12 +198,12 @@
     </p>
   </div>
 
-  <!-- TODO Add a directive to this div element so that it repeats 
+  <!-- Add a directive to this div element so that it repeats 
     for each recipe step to display. -->
   <div ng-repeat="step in vm.recipeSave.steps track by $index" class="step-row">
     <div class="prefix-20 grid-75">
       <p>
-        <!-- TODO Add a directive to this input element to bind its value 
+        <!-- Add a directive to this input element to bind its value 
           to the recipe step model's `description` property. -->
         <input ng-model="step.description" type="text">
       </p>
@@ -220,7 +219,7 @@
 
   <div class="prefix-20 grid-80 add-row">
     <p>
-      <!-- TODO Add a directive to this button in order to handle 
+      <!-- Add a directive to this button in order to handle 
        when the user clicks to add a new recipe step. -->
       <button ng-click="vm.changeStep()">+ Add {{vm.stepBtn}} Step</button>
     </p>

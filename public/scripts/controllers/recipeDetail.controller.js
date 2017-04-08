@@ -1,26 +1,31 @@
 class RecipeDetailController {
-  constructor ($http, $rootScope, $scope, dataService, $location, $routeParams) {
+  constructor (dataService, $location, $routeParams) {
     // inject services and modules
-    this.$http = $http
     this.$routeParams = $routeParams
     this.dataService = dataService
-    this.$scope = $scope
     this.$location = $location
+
     // initialize items
-    this.setItems()
-    this.setCategories()
     this.init()
+  }
+
+  // initialize controller/view data
+  init () {
     this.recipeSave = {
-      // name: '',
       ingredients: [],
       steps: []
     }
-  }
-
-  init () {
+    // set buttons
     this.ingredientBtn = 'an'
     this.stepBtn = 'a'
-    if (this.$location.url() === '/add') {
+    // change title if path is add
+    this.dataService.setItems().then(response => {
+      this.foodItems = response
+    })
+    this.dataService.setCategories().then(response => {
+      this.categories = response
+    })
+    if (this.$location.url().includes('add')) {
       this.title = 'Add New Recipe'
       return
     }
@@ -32,44 +37,42 @@ class RecipeDetailController {
         })
   }
 
-  setItems () {
-    this.dataService.dataRequests('GET', 'foodItems')
-      .then(data => {
-        this.foodItems = data
-      })
-  }
-
-  setCategories () {
-    this.dataService.dataRequests('GET', 'categories')
-      .then(data => {
-        this.categories = data
-      })
-  }
-
+  // sends post or put method to service, depends on current url path
   createRecipe () {
-    if (this.$location.url() === '/add') {
-      this.dataService.dataRequests('POST', 'recipes', this.recipeSave)
-      // return
+    let recipeOptions = {
+      method: 'POST',
+      path: 'recipes'
     }
+    // if recipe path is edited, change request method and api endpoint
+    if (this.$location.url().includes('/edit')) {
+      recipeOptions.method = 'PUT'
+      recipeOptions.path = `recipes/${this.$routeParams.id}`
+    }
+    this.dataService.dataRequests(recipeOptions.method, recipeOptions.path, this.recipeSave)
+        .then(this.$location.path('/'))
   }
 
+  // clicks to change ingredient
   changeIngredient (index) {
     this.ingredientBtn = 'another'
+    // if index passed, delete recipe
     if (index >= 0) {
-      console.log('delete', index)
       this.recipeSave.ingredients.splice(index, 1)
       return
     }
+    // add new object to repeat
     this.recipeSave.ingredients.push({})
   }
 
+  // clicks to change step in recipe
   changeStep (index) {
     this.stepBtn = 'another'
+    // if index passed, delete recipe
     if (index >= 0) {
-      console.log('delete', index)
       this.recipeSave.steps.splice(index, 1)
       return
     }
+    // add new object to repeat
     this.recipeSave.steps.push({})
   }
 }

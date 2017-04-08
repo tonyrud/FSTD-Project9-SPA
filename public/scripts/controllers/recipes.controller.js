@@ -1,30 +1,24 @@
 class RecipesController {
-  constructor ($http, $rootScope, dataService, $location) {
-    this.$http = $http
+  constructor (dataService, $location) {
+    // inject services and modules
     this.dataService = dataService
     this.$location = $location
-    this.setRecipes()
-    this.setCategories()
+    this.init()
   }
 
-  addRecipe () {
-    this.$location.path('/add')
+  init () {
+    this.dataService.setRecipes().then(response => {
+      this.recipes = response
+      console.log(this.recipes)
+    })
+    this.dataService.setCategories().then(response => {
+      this.categories = response
+    })
   }
 
-  setRecipes () {
-    this.dataService.dataRequests('GET', 'recipes')
-      .then(data => {
-        console.log(data)
-        this.recipes = data
-      })
-  }
-
-  setCategories () {
-    this.dataService.dataRequests('GET', 'categories')
-      .then(data => {
-        this.dataService.categories = data
-        this.categories = data
-      })
+  deleteRecipe (id) {
+    this.dataService.dataRequests('DELETE', `recipes/${id}`)
+        .then(this.init())
   }
 }
 
