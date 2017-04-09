@@ -18,16 +18,17 @@
 </div>
 <div class="clear"></div>
 
-<!-- TODO Add a directive to this div element so that it only displays
+<!--  Add a directive to this div element so that it only displays
   when there are validation messages to display. -->
-<div ng-hide="!vm.errors" class="grid-100 row">
+<div ng-show="vm.errors.length" class="grid-100 row">
   <div class="grid-100">
     <p><i>The following errors were found:</i></p>
     <ul class="validation-errors">
-      <!-- TODO Add a directive to this li element so that it repeats
+      <!--  Add a directive to this li element so that it repeats
         for each validation message that there is to display -->
-      <li>
-        <!-- TODO Add a binding expression to display the validation user message. -->
+      <li ng-repeat="error in vm.errors">
+        <!--  Add a binding expression to display the validation user message. -->
+        {{error}}
       </li>
     </ul>
   </div>
@@ -168,9 +169,9 @@
     </div>
     <div class="grid-5 pad-top">
       <p class="flush-right">
-        <!-- TODO Add a directive to this anchor element so that you can 
+        <!-- Add a directive to this anchor element so that you can 
           delete the recipe ingredient when the user clicks on the 'Delete' link. -->
-        <a class="no-action-link" ng-click="vm.deleteRow($index)"> <img src="images/delete.svg" height="12px"> </a>
+        <a class="no-action-link" ng-click="vm.changeItem(vm.recipeSave.ingredients, $index)"> <img src="images/delete.svg" height="12px"> </a>
       </p>
     </div>
   </div>
@@ -179,7 +180,7 @@
     <p>
       <!-- Add a directive to this button in order to handle 
         when the user clicks to add a new recipe ingredient. -->
-      <button ng-click="vm.changeIngredient()">+ Add {{vm.ingredientBtn}} Ingredient</button>
+      <button ng-click="vm.changeItem(vm.recipeSave.ingredients); vm.ingredientBtn = 'another'">+ Add {{vm.ingredientBtn}} Ingredient</button>
     </p>
   </div>
 
@@ -210,9 +211,9 @@
     </div>
     <div class="grid-5 pad-top">
       <p class="flush-right">
-        <!-- TODO Add a directive to this anchor element so that you can 
+        <!-- Add a directive to this anchor element so that you can 
           delete the recipe step when the user clicks on the 'Delete' link. -->
-        <a class="no-action-link" ng-click="vm.changeStep($index)"> <img src="images/delete.svg" height="12px"> </a>
+        <a class="no-action-link" ng-click="vm.changeItem(vm.recipeSave.steps, $index)"> <img src="images/delete.svg" height="12px"> </a>
       </p>
     </div>
   </div>
@@ -221,7 +222,7 @@
     <p>
       <!-- Add a directive to this button in order to handle 
        when the user clicks to add a new recipe step. -->
-      <button ng-click="vm.changeStep()">+ Add {{vm.stepBtn}} Step</button>
+      <button ng-click="vm.changeItem(vm.recipeSave.steps); vm.stepBtn = 'another'">+ Add {{vm.stepBtn}} Step</button>
     </p>
   </div>
 

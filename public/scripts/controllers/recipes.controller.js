@@ -1,24 +1,28 @@
-class RecipesController {
-  constructor (dataService, $location) {
-    // inject services and modules
-    this.dataService = dataService
-    this.$location = $location
-    this.init()
-  }
+(function () {
+  class RecipesController {
+    constructor (dataService) {
+      // inject services and modules
+      this.dataService = dataService
 
-  init () {
-    this.dataService.setRecipes().then(response => {
-      this.recipes = response
-      console.log(this.recipes)
-    })
-    this.dataService.setCategories().then(response => {
-      this.categories = response
-    })
-  }
+      // initialize items
+      this.init()
+    }
 
-  deleteRecipe (id) {
-    this.dataService.dataRequests('DELETE', `recipes/${id}`)
-        .then(this.init())
+    init () {
+      this.dataService.initData('recipes', 'categories')
+        .then(responses => {
+          this.recipes = responses[0]
+          this.categories = responses[1]
+        })
+    }
+
+    deleteRecipe (id) {
+      this.dataService.dataRequests('DELETE', `recipes/${id}`)
+          .then(this.init())
+    }
   }
-}
+  angular
+  .module('app')
+  .controller('RecipesController', RecipesController)
+})()
 

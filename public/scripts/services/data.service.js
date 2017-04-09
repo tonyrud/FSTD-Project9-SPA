@@ -1,33 +1,41 @@
-class dataService {
-  constructor ($http, $rootScope) {
-    this.$http = $http
-    this.apiRoot = 'http://localhost:5000/api/'
-  }
-
-  dataRequests (request, path, postData) {
-    // set request options
-    const reqOptions = {
-      method: request,
-      url: `${this.apiRoot}` + path
+(function () {
+  class dataService {
+    constructor ($http, $q) {
+      this.$http = $http
+      this.$q = $q
+      this.apiRoot = 'http://localhost:5000/api/'
     }
-    // if recipe is being added, setup post options
-    if (postData) {
-      reqOptions.data = postData
+
+    initData (...endpoints) {
+      // pass items api endpoint for GET request, then set scope variables to responses
+       return this.$q
+        .all(this.setupData(...endpoints)) // get array of promises
+        .then(responses => responses) // return array from endpoints passed
     }
-    // debugger
-    return this.$http(reqOptions).then(response => response.data)
-  }
 
-  setRecipes () {
-    return this.dataRequests('GET', 'recipes').then(data => data)
-  }
+    dataRequests (request, path, postData) {
+      // set request options
+      const reqOptions = {
+        method: request,
+        url: `${this.apiRoot}` + path
+      }
+      // if recipe is being added, add data for POST data
+      if (postData) {
+        reqOptions.data = postData
+      }
+      return this.$http(reqOptions).then(response => response.data)
+    }
 
-  setCategories () {
-    return this.dataRequests('GET', 'categories').then(data => data)
+    // setup promises for recipes and details pages
+    setupData (...requests) {
+      const promises = []
+      requests.forEach(request => {
+        promises.push(this.dataRequests('GET', request))
+      })
+      return promises
+    }
   }
-
-  setItems () {
-    return this.dataRequests('GET', 'foodItems').then(data => data)
-  }
-}
-
+  angular
+    .module('app')
+    .service('dataService', dataService)
+})()

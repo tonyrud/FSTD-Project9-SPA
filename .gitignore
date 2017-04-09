@@ -3,3 +3,4 @@ categories.db
 foodItems.db
 recipes.db
 /.vscode
+/npm-debug.log

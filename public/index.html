@@ -18,7 +18,7 @@
   bootstrap your Angular app. Be sure to use the name 'app' 
   so that the provided Angular routes function properly. -->
 
-<body ng-app="app">
+<body ng-app="app" ng-cloak="">
 
   <div class="grid-container">
 
@@ -49,10 +49,10 @@
   <script src="vendor/angular.js"></script>
   <script src="vendor/angular-route.js"></script>
   <!-- TODO Add script tags for your JavaScript files here -->
+  <script src="./scripts/app.js"></script>
   <script src="./scripts/services/data.service.js"></script>
   <script src="./scripts/controllers/recipes.controller.js"></script>
   <script src="./scripts/controllers/recipeDetail.controller.js"></script>
-  <script src="./scripts/app.js"></script>
   <script src="scripts/route-config.js"></script>
 </body>
 
